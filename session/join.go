@@ -30,11 +30,10 @@ var (
 
 /*
 JOIN 添加一个联表子句
-
-- kind: JOIN 类型（INNER/LEFT/RIGHT/FULL/CROSS）
-- table: 关联表（逻辑表名，按会话的命名策略解析为物理表名）
-- alias: 关联表别名，必须显式给出；主表用物理表名限定，所以别名不能与主表同名
-- on: ON 条件，CROSS JOIN 必须为空，其余类型必须提供
+  - kind: JOIN 类型（INNER/LEFT/RIGHT/FULL/CROSS）
+  - table: 关联表（逻辑表名，按会话的命名策略解析为物理表名）
+  - alias: 关联表别名，必须显式给出；主表用物理表名限定，所以别名不能与主表同名
+  - on: ON 条件，CROSS JOIN 必须为空，其余类型必须提供
 
 只对 SELECT / FindFirst / COUNT / Exist 生效，写语句会返回 ErrJoinUnsupported。
 */

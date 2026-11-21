@@ -52,8 +52,8 @@ func BenchmarkSessionSelectColumns(b *testing.B) {
 	defer teardownSession(sess)
 
 	b.ReportAllocs()
-	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+
+	for b.Loop() {
 		var groups []examples.Group
 		if _, err := sess.COLUMNS("id", "name").SELECT(&groups); err != nil {
 			b.Fatalf("select failed: %v", err)
@@ -72,7 +72,7 @@ func BenchmarkSessionFirst(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		var group examples.Group
 		if _, err := sess.WHERE(where.EQ("id", 1)).FindFirst(&group); err != nil {
 			b.Fatalf("first failed: %v", err)
@@ -87,7 +87,7 @@ func BenchmarkSessionExist(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := sess.WHERE(where.EQ("name", "bench")).Exist(); err != nil {
 			b.Fatalf("exist failed: %v", err)
 		}
@@ -101,7 +101,7 @@ func BenchmarkSessionInsertOne(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := sess.INSERT(false, &examples.Group{Name: "bench", CreatedBy: "tester"}); err != nil {
 			b.Fatalf("insert failed: %v", err)
 		}
@@ -116,7 +116,7 @@ func BenchmarkSessionUpdateStruct(b *testing.B) {
 	id := testInsertGroup(sess, "update-bench", "tester")
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		group := &examples.Group{ID: id, Name: "update-bench", CreatedBy: "tester"}
 		if _, err := sess.UPDATE(group); err != nil {
 			b.Fatalf("update failed: %v", err)
@@ -167,7 +167,7 @@ func BenchmarkSessionFirstCached(b *testing.B) {
 
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		var group examples.Group
 		if _, err := sess.WHERE(where.EQ("id", 1)).FindFirst(&group); err != nil {
 			b.Fatalf("first failed: %v", err)
@@ -184,7 +184,7 @@ func BenchmarkSessionUpdateStructCached(b *testing.B) {
 	id := testInsertGroup(sess, "update-bench", "tester")
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		group := &examples.Group{ID: id, Name: "update-bench", CreatedBy: "tester"}
 		if _, err := sess.UPDATE(group); err != nil {
 			b.Fatalf("update failed: %v", err)

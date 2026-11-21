@@ -933,9 +933,8 @@ func BenchmarkMySQLClause_QuoteIdentifier(b *testing.B) {
 	column := "user_id"
 
 	b.ReportAllocs()
-	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		cla.QuoteIdentifier(column)
 	}
 }
@@ -974,7 +973,7 @@ func BenchmarkMySQLClause_BuildPlaceholders(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildPlaceholders(&ctx.builder, 0, 10); err != nil {
 				b.Error(err)
 			}
@@ -986,7 +985,7 @@ func BenchmarkMySQLClause_BuildPlaceholders(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildPlaceholders(&ctx.builder, 0, 30); err != nil {
 				b.Error(err)
 			}
@@ -998,7 +997,7 @@ func BenchmarkMySQLClause_BuildPlaceholders(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildPlaceholders(&ctx.builder, 0, 31); err != nil {
 				b.Error(err)
 			}
@@ -1044,9 +1043,8 @@ func BenchmarkMySQLClause_BuildInsertSQL(b *testing.B) {
 	ctx := NewContext()
 
 	b.ReportAllocs()
-	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildInsertSQL(ctx, "users", false, "id", "name", "age", "sex", "email", "addr"); err != nil {
 			b.Error(err)
 		}
@@ -1072,7 +1070,7 @@ func BenchmarkMySQLClause_BuildReplaceSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildReplaceSQL(ctx, "users", "id", "name", "age", "sex", "email", "addr"); err != nil {
 			b.Error(err)
 		}
@@ -1105,7 +1103,7 @@ func BenchmarkMySQLClause_BuildValuesSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildValuesSQL(ctx, 0,
 				[]any{"id", "name", "age", "sex", "email", "addr"},
 			); err != nil {
@@ -1119,7 +1117,7 @@ func BenchmarkMySQLClause_BuildValuesSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildValuesSQL(ctx, 0,
 				[]any{"id", "name", "age", "sex", "email", "addr"},
 				[]any{"id", "name", "age", "sex", "email", "addr"},
@@ -1137,7 +1135,7 @@ func BenchmarkMySQLClause_BuildValuesSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildValuesSQL(ctx, 0,
 				[]any{"id", "name", "age", "sex", "email", "addr"},
 				[]any{"id", "name", "age", "sex", "email", "addr"},
@@ -1177,7 +1175,7 @@ func BenchmarkMySQLClause_BuildDuplicateSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildDuplicateSQL(ctx, "name", "age", "sex", "email", "addr"); err != nil {
 				b.Error(err)
 			}
@@ -1189,7 +1187,7 @@ func BenchmarkMySQLClause_BuildDuplicateSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildDuplicateSQL(ctx, "name", "age", "sex", "email", "addr"); err != nil {
 				b.Error(err)
 			}
@@ -1216,7 +1214,7 @@ func BenchmarkMySQLClause_BuildUpdateSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildUpdateSQL(ctx, "users"); err != nil {
 			b.Error(err)
 		}
@@ -1256,7 +1254,7 @@ func BenchmarkMySQLClause_BuildSetSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSetSQL(ctx, 0, data); err != nil {
 				b.Error(err)
 			}
@@ -1276,7 +1274,7 @@ func BenchmarkMySQLClause_BuildSetSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSetSQL(ctx, 0, data); err != nil {
 				b.Error(err)
 			}
@@ -1301,7 +1299,7 @@ func BenchmarkMySQLClause_BuildSetSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSetSQL(ctx, 0, data); err != nil {
 				b.Error(err)
 			}
@@ -1328,7 +1326,7 @@ func BenchmarkMySQLClause_BuildDeleteSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildDeleteSQL(ctx, "users"); err != nil {
 			b.Error(err)
 		}
@@ -1357,7 +1355,7 @@ func BenchmarkMySQLClause_BuildSelectSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSelectSQL(ctx, "id"); err != nil {
 				b.Error(err)
 			}
@@ -1369,7 +1367,7 @@ func BenchmarkMySQLClause_BuildSelectSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSelectSQL(ctx, "id", "name", "age", "sex", "email"); err != nil {
 				b.Error(err)
 			}
@@ -1381,7 +1379,7 @@ func BenchmarkMySQLClause_BuildSelectSQL(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			if err := cla.BuildSelectSQL(ctx, "id", "name", "age", "sex", "email", "addr", "group", "is_role", "updated_at", "updated_by"); err != nil {
 				b.Error(err)
 			}
@@ -1420,7 +1418,7 @@ func BenchmarkMySQLClause_BuildCountSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildCountSQL(ctx); err != nil {
 			b.Error(err)
 		}
@@ -1446,7 +1444,7 @@ func BenchmarkMySQLClause_BuildWhereSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildWhereSQL(ctx); err != nil {
 			b.Error(err)
 		}
@@ -1472,7 +1470,7 @@ func BenchmarkMySQLClause_BuildGroupBySQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildGroupBySQL(ctx, "id", "name", "age", "sex", "email", "addr"); err != nil {
 			b.Error(err)
 		}
@@ -1538,7 +1536,7 @@ func BenchmarkMySQLClause_BuildJSONExtractSQL(b *testing.B) {
 	b.ReportAllocs()
 	b.ResetTimer()
 
-	for range b.N {
+	for b.Loop() {
 		if err := cla.BuildJSONExtractSQL(ctx, "users", "id"); err != nil {
 			b.Error(err)
 		}
@@ -1581,7 +1579,7 @@ func BenchmarkO1(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O1(args...)
 		}
 	})
@@ -1592,7 +1590,7 @@ func BenchmarkO1(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O1(args...)
 		}
 	})
@@ -1603,7 +1601,7 @@ func BenchmarkO1(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O1(args...)
 		}
 	})
@@ -1634,7 +1632,7 @@ func BenchmarkO11(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O11(args)
 		}
 	})
@@ -1645,7 +1643,7 @@ func BenchmarkO11(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O11(args)
 		}
 	})
@@ -1656,7 +1654,7 @@ func BenchmarkO11(b *testing.B) {
 		b.ReportAllocs()
 		b.ResetTimer()
 
-		for range b.N {
+		for b.Loop() {
 			O11(args)
 		}
 	})

@@ -355,9 +355,8 @@ func BenchmarkGroupUpdate_Map(b *testing.B) {
 	id := testInsertGroup(sess, "bench-map", "tester")
 
 	b.ReportAllocs()
-	b.ResetTimer()
 
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := sess.WHERE(where.EQ("id", id)).UPDATE(map[string]any{
 			"name":       "map-updated",
 			"created_by": "bench",
@@ -383,9 +382,8 @@ func BenchmarkGroupUpdate_Struct_Single(b *testing.B) {
 	}
 
 	b.ReportAllocs()
-	b.ResetTimer()
 
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := sess.UPDATE(group)
 		if err != nil {
 			b.Fatal(err)
@@ -410,9 +408,8 @@ func BenchmarkGroupUpdate_Struct_ManualWhere(b *testing.B) {
 	}
 
 	b.ReportAllocs()
-	b.ResetTimer()
 
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		_, err := sess.WHERE(where.EQ("id", id)).UPDATE(group)
 		if err != nil {
 			b.Fatal(err)
