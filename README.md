@@ -1,6 +1,13 @@
 # wxorm
 
-`wxorm` 是一个基于 `database/sql` 的 Go ORM：结构体即表定义，链式构造 SQL，零第三方依赖。
+![wxorm logo](docs/assets/logo.png)
+
+`wxorm` 是一个构建在 Go 标准库 `database/sql` 之上的轻量级 ORM。它在保持
+`*sql.DB` / `*sql.Tx` 完全兼容的前提下，以结构体标签描述表结构、约束与关联，
+提供链式 SQL 构造、CRUD、批量写入、UPSERT、事务与上下文取消、N:1 JOIN、
+关联预加载、表前缀与库限定、DDL 迁移及结构差异报告、预编译语句 LRU 缓存、
+慢 SQL 日志与 `big.Int` / `big.Float` 大数支持等能力；内置 MySQL、PostgreSQL、
+SQLite 三套方言适配，SQL 与占位符按方言生成，便于在多种数据库之间平滑切换。
 
 - **方言**：MySQL、PostgreSQL、SQLite 均已端到端可用（CRUD、UPSERT、DDL、索引、主键回填）；
   各方言的差异与边界见 [已知限制](#已知限制)。
